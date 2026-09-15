@@ -6,6 +6,8 @@ services:
     image: gvenzl/oracle-free:slim
     environment:
       ORACLE_PASSWORD: SuperSecret0
+      APP_USER: tareas
+      APP_USER_PASSWORD: S3cr3t0
     volumes:
       - ./scripts:/docker-entrypoint-initdb.d
     healthcheck:
