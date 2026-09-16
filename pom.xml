@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+		<querydsl.version>5.1.0</querydsl.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,7 +79,15 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+			<classifier>jakarta</classifier>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>
@@ -97,10 +106,24 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
+							<annotationProcessors>
+								<annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+								<annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>
+							</annotationProcessors>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.projectlombok</groupId>
 									<artifactId>lombok</artifactId>
+								</path>
+								<path>
+									<groupId>com.querydsl</groupId>
+									<artifactId>querydsl-apt</artifactId>
+									<version>${querydsl.version}</version>
+									<classifier>jakarta</classifier>
+								</path>
+								<path>
+									<groupId>jakarta.persistence</groupId>
+									<artifactId>jakarta.persistence-api</artifactId>
 								</path>
 							</annotationProcessorPaths>
 						</configuration>
@@ -112,10 +135,24 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
+							<annotationProcessors>
+								<annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+								<annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>
+							</annotationProcessors>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.projectlombok</groupId>
 									<artifactId>lombok</artifactId>
+								</path>
+								<path>
+									<groupId>com.querydsl</groupId>
+									<artifactId>querydsl-apt</artifactId>
+									<version>${querydsl.version}</version>
+									<classifier>jakarta</classifier>
+								</path>
+								<path>
+									<groupId>jakarta.persistence</groupId>
+									<artifactId>jakarta.persistence-api</artifactId>
 								</path>
 							</annotationProcessorPaths>
 						</configuration>

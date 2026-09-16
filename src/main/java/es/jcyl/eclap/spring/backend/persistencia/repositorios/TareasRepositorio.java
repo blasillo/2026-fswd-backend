@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface TareasRepositorio extends JpaRepository<Tarea,Integer> {
+public interface TareasRepositorio extends JpaRepository<Tarea,Integer>, TareasRepositorioPersonalizado {
 
 
     Page<Tarea> findByUsuarioId(Integer idUsuario, Pageable pageable);
