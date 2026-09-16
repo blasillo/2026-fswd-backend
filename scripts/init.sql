@@ -89,5 +89,49 @@ VALUES (1, 1);
 INSERT INTO app_usuarios_roles (id_rol, id_usuario)
 VALUES (2, 1);
 
+
+
+-- Usuario 2: base
+INSERT INTO app_usuarios (nombre_apellidos, iniciales, correo_electronico, contrasena, f_creacion)
+VALUES ('Laura Martinez', 'LM', 'laura.martinez@eclap.jcyl.es', 'CambiaLaClaveYa!', SYSTIMESTAMP);
+
+-- Usuario 3: admin
+INSERT INTO app_usuarios (nombre_apellidos, iniciales, correo_electronico, contrasena, f_creacion)
+VALUES ('Javier Gomez', 'JG', 'javier.gomez@eclap.jcyl.es', 'CambiaLaClaveYa!', SYSTIMESTAMP);
+-- id_usuario generados: 1 = Usuario Demo, 2 = Laura Martinez, 3 = Javier Gomez
+
+INSERT INTO app_usuarios_roles (id_rol, id_usuario)
+VALUES (1, 2);
+
+-- Usuario 3 (Javier Gomez) -> ADMINISTRADOR (y tambien BASE, como el usuario demo original)
+INSERT INTO app_usuarios_roles (id_rol, id_usuario)
+VALUES (1, 3);
+
+-- Tareas de Usuario 1 (Usuario Demo)
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Revisar documentacion del proyecto', 20, 'Azul', 1, SYSTIMESTAMP);
+
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Preparar entorno de desarrollo', 100, 'Verde', 1, SYSTIMESTAMP);
+
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Escribir tests de integracion', 45, 'Amarillo', 1, SYSTIMESTAMP);
+
+-- Tareas de Usuario 2 (Laura Martinez)
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Disenar interfaz de usuario', 60, 'Morado', 2, SYSTIMESTAMP);
+
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Maquetar formulario de tareas', 0, 'Naranja', 2, SYSTIMESTAMP);
+
+-- Tareas de Usuario 3 (Javier Gomez)
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Configurar pipeline CI/CD', 80, 'Rojo', 3, SYSTIMESTAMP);
+
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Revisar permisos de administracion', 10, 'Rojo', 3, SYSTIMESTAMP);
+
+INSERT INTO app_tareas (nombre, estado, color, id_usuario, f_creacion)
+VALUES ('Auditar logs del sistema', 100, 'Gris', 3, SYSTIMESTAMP);
 -- Confirmar las inserciones
 COMMIT;
