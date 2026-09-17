@@ -51,7 +51,7 @@ public interface TareasRepositorio extends JpaRepository<Tarea,Integer>, TareasR
 
         // @EntityGraph deja duplicados en usuario.roles porque el JOIN a la
         // colección de roles multiplica filas por cada tarea del mismo usuario.
-        // Se limpia a mano porque Hibernate ya no lo hace automáticamente.
+        // Se limpia a mano porque Hibernate no lo hace automáticamente.
         for (Tarea t : tareas) {
             List<Rol> rolesSinDuplicar = new ArrayList<>(new LinkedHashSet<>(t.getUsuario().getRoles()));
             t.getUsuario().setRoles(rolesSinDuplicar);
