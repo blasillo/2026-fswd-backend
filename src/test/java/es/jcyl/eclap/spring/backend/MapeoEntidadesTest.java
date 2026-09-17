@@ -77,7 +77,7 @@ public class MapeoEntidadesTest {
         assertEquals("Ana García", recuperado.getNombreCompleto());
         assertNotNull(recuperado.getFechaCreacion()); // @CreatedDate debe rellenarse solo
         assertEquals(1, recuperado.getRoles().size());
-        assertEquals(rol.getNombre(), recuperado.getRoles().get(0).getNombre());
+        assertTrue(recuperado.getRoles().stream().anyMatch(r -> r.getNombre().equals(rol.getNombre())));
     }
 
     @Test
