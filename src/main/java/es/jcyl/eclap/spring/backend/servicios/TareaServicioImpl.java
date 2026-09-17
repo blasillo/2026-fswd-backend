@@ -8,6 +8,7 @@ import es.jcyl.eclap.spring.backend.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.eclap.spring.backend.persistencia.repositorios.UsuariosRepositorio;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class TareaServicioImpl implements TareaServicio {
 
     private final TareasRepositorio tareasRepo;
     private final UsuariosRepositorio usuariosRepo;
-
     private final TareaMapeo mapeo;
+
+    public TareaServicioImpl(
+            TareasRepositorio tareasRepo,
+            UsuariosRepositorio usuariosRepo,
+            @Qualifier("manual") TareaMapeo mapeo) {
+        this.tareasRepo = tareasRepo;
+        this.usuariosRepo = usuariosRepo;
+        this.mapeo = mapeo;
+    }
 
     @Override
     public TareaDto crearTarea(TareaDto modelo) {

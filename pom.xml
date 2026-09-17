@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>25</java.version>
 		<querydsl.version>5.1.0</querydsl.version>
+		<mapstruct.version>1.6.3</mapstruct.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -86,6 +87,12 @@
 			<version>${querydsl.version}</version>
 			<classifier>jakarta</classifier>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
 	</dependencies>
 
 
@@ -109,6 +116,7 @@
 							<annotationProcessors>
 								<annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
 								<annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>
+								<annotationProcessor>org.mapstruct.ap.MappingProcessor</annotationProcessor>
 							</annotationProcessors>
 							<annotationProcessorPaths>
 								<path>
@@ -124,6 +132,16 @@
 								<path>
 									<groupId>jakarta.persistence</groupId>
 									<artifactId>jakarta.persistence-api</artifactId>
+								</path>
+								<path>
+									<groupId>org.mapstruct</groupId>
+									<artifactId>mapstruct-processor</artifactId>
+									<version>${mapstruct.version}</version>
+								</path>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok-mapstruct-binding</artifactId>
+									<version>0.2.0</version>
 								</path>
 							</annotationProcessorPaths>
 						</configuration>
@@ -138,6 +156,7 @@
 							<annotationProcessors>
 								<annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
 								<annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>
+								<annotationProcessor>org.mapstruct.ap.MappingProcessor</annotationProcessor>
 							</annotationProcessors>
 							<annotationProcessorPaths>
 								<path>
@@ -153,6 +172,16 @@
 								<path>
 									<groupId>jakarta.persistence</groupId>
 									<artifactId>jakarta.persistence-api</artifactId>
+								</path>
+								<path>
+									<groupId>org.mapstruct</groupId>
+									<artifactId>mapstruct-processor</artifactId>
+									<version>${mapstruct.version}</version>
+								</path>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok-mapstruct-binding</artifactId>
+									<version>0.2.0</version>
 								</path>
 							</annotationProcessorPaths>
 						</configuration>
