@@ -1,5 +1,6 @@
 package es.jcyl.eclap.spring.backend.dto;
 
+import es.jcyl.eclap.spring.backend.dto.validacion.RolesExistentes;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,5 +28,6 @@ public class UsuarioDto {
     @Size(max = 100)
     private String  correo;
 
+    @RolesExistentes
     private String[] roles;
 }

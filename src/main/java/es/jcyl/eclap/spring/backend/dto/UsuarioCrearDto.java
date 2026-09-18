@@ -1,5 +1,6 @@
 package es.jcyl.eclap.spring.backend.dto;
 
+import es.jcyl.eclap.spring.backend.dto.validacion.RolesExistentes;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,5 +28,6 @@ public class UsuarioCrearDto {
     @Size(min = 6, max = 100, message = "La clave debe tener entre 6 y 100 caracteres")
     private String  clave;
 
+    @RolesExistentes
     private String[] roles;
 }
