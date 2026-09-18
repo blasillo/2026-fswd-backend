@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RolesRepositorio extends JpaRepository<Rol,Integer> {
 
@@ -32,4 +33,6 @@ public interface RolesRepositorio extends JpaRepository<Rol,Integer> {
     long contarUsuariosPorRolNative(@Param("nombreRol") String nombreRol);
 
 
+    // añadido para servicio
+    List<Rol> findByNombreIn(List<String> nombres);
 }

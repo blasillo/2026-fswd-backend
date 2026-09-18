@@ -6,7 +6,7 @@ import es.jcyl.eclap.spring.backend.persistencia.entidades.Usuario;
 import es.jcyl.eclap.spring.backend.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.eclap.spring.backend.persistencia.repositorios.UsuariosRepositorio;
 import es.jcyl.eclap.spring.backend.servicios.TareaMapeo;
-import es.jcyl.eclap.spring.backend.servicios.TareaServicioImpl;
+import es.jcyl.eclap.spring.backend.servicios.impl.TareaServicioImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

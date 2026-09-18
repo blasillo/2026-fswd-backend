@@ -1,4 +1,4 @@
-package es.jcyl.eclap.spring.backend.servicios;
+package es.jcyl.eclap.spring.backend.servicios.impl;
 
 
 import es.jcyl.eclap.spring.backend.dto.TareaDto;
@@ -6,14 +6,14 @@ import es.jcyl.eclap.spring.backend.persistencia.entidades.Tarea;
 import es.jcyl.eclap.spring.backend.persistencia.entidades.Usuario;
 import es.jcyl.eclap.spring.backend.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.eclap.spring.backend.persistencia.repositorios.UsuariosRepositorio;
+import es.jcyl.eclap.spring.backend.servicios.TareaMapeo;
+import es.jcyl.eclap.spring.backend.servicios.TareaServicio;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
