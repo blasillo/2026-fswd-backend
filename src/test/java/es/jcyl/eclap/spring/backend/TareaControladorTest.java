@@ -1,7 +1,9 @@
 package es.jcyl.eclap.spring.backend;
 
 
+import es.jcyl.eclap.spring.backend.config.WebConfig;
 import es.jcyl.eclap.spring.backend.dto.TareaDto;
+import org.springframework.context.annotation.Import;
 import tools.jackson.databind.ObjectMapper;
 import es.jcyl.eclap.spring.backend.servicios.TareaServicio;
 import es.jcyl.eclap.spring.backend.controladores.TareaControlador;
@@ -26,7 +28,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TareaControlador.class)
+@Import(WebConfig.class)
 public class TareaControladorTest {
+
+    private static final String RUTA_BASE = "/api/v1.0/tareas";
 
     @Autowired
     private MockMvc mockMvc;
@@ -48,7 +53,7 @@ public class TareaControladorTest {
     }
 
     // ============================================================
-    // POST /tareas
+    // POST /api/v1/tareas
     // ============================================================
 
     @Test
@@ -56,7 +61,7 @@ public class TareaControladorTest {
         TareaDto dto = dtoValido();
         when(servicio.crearTarea(any(TareaDto.class))).thenReturn(dto);
 
-        mockMvc.perform(post("/tareas")
+        mockMvc.perform(post(RUTA_BASE)
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
@@ -68,14 +73,14 @@ public class TareaControladorTest {
         TareaDto invalido = dtoValido();
         invalido.setNombre("Ho"); // menos de 5 caracteres, viola @Size(min=5)
 
-        mockMvc.perform(post("/tareas")
+        mockMvc.perform(post(RUTA_BASE)
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(invalido)))
                 .andExpect(status().isBadRequest());
     }
 
     // ============================================================
-    // GET /tareas (paginado)
+    // GET /api/v1/tareas (paginado)
     // ============================================================
 
     @Test
@@ -85,17 +90,17 @@ public class TareaControladorTest {
 
         when(servicio.obtenerTareas(anyString(), any(Pageable.class))).thenReturn(pagina);
 
-        mockMvc.perform(get("/tareas")
+        mockMvc.perform(get(RUTA_BASE)
                         .param("correo", "test@correo.com")
                         .param("page", "0")
                         .param("size", "10"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].nombre").value("Tarea válida"))
-                .andExpect(jsonPath("$.totalElements").value(1));
+                .andExpect(jsonPath("$.page.totalElements").value(1));
     }
 
     // ============================================================
-    // PUT /tareas
+    // PUT /api/v1/tareas
     // ============================================================
 
     @Test
@@ -103,7 +108,7 @@ public class TareaControladorTest {
         TareaDto dto = dtoValido();
         when(servicio.modificarTarea(any(TareaDto.class))).thenReturn(dto);
 
-        mockMvc.perform(put("/tareas")
+        mockMvc.perform(put(RUTA_BASE)
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk());
@@ -114,21 +119,21 @@ public class TareaControladorTest {
         TareaDto invalido = dtoValido();
         invalido.setUsuarioCorreo("no-es-un-correo"); // viola @Email
 
-        mockMvc.perform(put("/tareas")
+        mockMvc.perform(put(RUTA_BASE)
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(invalido)))
                 .andExpect(status().isBadRequest());
     }
 
     // ============================================================
-    // DELETE /tareas
+    // DELETE /api/v1/tareas
     // ============================================================
 
     @Test
     public void testBorrarTarea_devuelveElIdBorrado() throws Exception {
         when(servicio.borrarTarea(anyInt())).thenReturn(1);
 
-        mockMvc.perform(delete("/tareas").param("tareaId", "1"))
+        mockMvc.perform(delete(RUTA_BASE).param("tareaId", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("1"));
 
