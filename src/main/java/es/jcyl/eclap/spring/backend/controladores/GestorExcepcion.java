@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,6 +53,19 @@ public class GestorExcepcion {
                 .mensaje("Hay campos que no cumplen las validaciones")
                 .ruta(request.getRequestURI())
                 .camposConError(camposConError)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorDto> gestionarJsonMalFormado(HttpMessageNotReadableException ex, HttpServletRequest request) {
+        ErrorDto error = ErrorDto.builder()
+                .fecha(LocalDateTime.now())
+                .estadoHttp(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .mensaje("El cuerpo de la petición no es un JSON válido o falta")
+                .ruta(request.getRequestURI())
                 .build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
