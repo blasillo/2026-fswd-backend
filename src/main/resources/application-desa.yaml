@@ -11,6 +11,11 @@ spring:
       format: "true"
     show-sql: true
     database-platform: "org.hibernate.dialect.OracleDialect"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/tareas-app
   docker:
     compose:
       skip:
