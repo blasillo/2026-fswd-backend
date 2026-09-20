@@ -27,3 +27,12 @@ management:
     web:
       exposure:
         include: "*"
+
+keycloak:
+  admin:
+    server-url: http://localhost:8081
+    realm-master: master
+    realm-gestionado: tareas-app
+    client-id: admin-cli
+    usuario: admin
+    clave: admin
