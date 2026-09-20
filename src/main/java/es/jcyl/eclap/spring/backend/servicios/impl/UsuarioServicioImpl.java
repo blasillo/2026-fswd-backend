@@ -24,11 +24,21 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     private final RolesRepositorio rolesRepo;
     private final UsuarioMapeo mapeo;
 
+    private final KeycloakUsuarioServicio keycloakSrv;
+
     @Override
     public UsuarioDto crearUsuario(UsuarioCrearDto modelo) {
         List<Rol> roles = resolverRoles(modelo.getRoles());
 
         Usuario nuevo = usuariosRepo.save(mapeo.deCrearDtoAEntidad(modelo, roles));
+
+        keycloakSrv.crearUsuario(
+                modelo.getCorreo(),
+                modelo.getNombreCompleto(),
+                modelo.getClave(),
+                Arrays.asList(modelo.getRoles())
+        );
+
         return mapeo.deEntidadADto(nuevo);
     }
 
@@ -49,6 +59,12 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         mapeo.actualizarEntidadDesdeDto(modelo, roles, existente);
 
         Usuario actualizado = usuariosRepo.save(existente);
+
+        keycloakSrv.actualizarUsuario(
+                modelo.getCorreo(),
+                modelo.getNombreCompleto(),
+                Arrays.asList(modelo.getRoles())
+        );
         return mapeo.deEntidadADto(actualizado);
     }
 
@@ -56,6 +72,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     public Integer borrarUsuario(Integer usuarioId) {
         Usuario usuario = usuariosRepo.findById(usuarioId)
                 .orElseThrow(() -> new EntityNotFoundException("El usuario no existe"));
+
+        keycloakSrv.borrarUsuario(usuario.getCorreo());
 
         usuariosRepo.delete(usuario);
         return usuarioId;
